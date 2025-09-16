@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "alpinejs": "^3.14.9",
+    "bootstrap-icons": "^1.13.1",
+    "htmx-ext-sse": "^2.2.3",
+    "htmx.org": "^2.0.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.6",
+    "@tailwindcss/typography": "^0.5.16",
+    "daisyui": "^5.0.35",
+    "esbuild": "^0.25.4",
+    "tailwindcss": "^4.1.6"
+  }
+}

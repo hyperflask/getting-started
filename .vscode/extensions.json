@@ -1,0 +1,7 @@
+{
+  "recommendations": [
+    "ms-python.python",
+    "hyperflask.jinjapy-language-support",
+    "hyperflask.sqlorm-syntax-highligting"
+  ]
+}

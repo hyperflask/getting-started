@@ -1,0 +1,52 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Server",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "hyperflask",
+      "args": [
+        "serve",
+        "--debug",
+        "--no-debugger",
+        "--no-reload"
+      ],
+      "jinja": true,
+      "serverReadyAction": {
+        "pattern": "Running on http://127.0.0.1:([0-9]+)",
+        "uriFormat": "http://localhost:%s",
+        "action": "openExternally"
+      },
+      "autoReload": {
+        "enable": true,
+        "pattern": [
+          "**/*.py",
+          "**/*.html",
+        ]
+      },
+      "preLaunchTask": "Build assets",
+      "justMyCode": false
+    },
+    {
+      "name": "Worker",
+      "type": "debugpy",
+      "request": "launch",
+      "module": "hyperflask",
+      "args": [
+        "worker"
+      ],
+      "preLaunchTask": "Launch scheduler"
+    }
+  ],
+  "compounds": [
+      {
+          "name": "Hyperflask Getting Started App",
+          "configurations": [
+            "Server",
+            "Worker",
+          ],
+          "stopAll": true
+      }
+  ]
+}

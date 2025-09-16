@@ -1,0 +1,18 @@
+{
+  "template": "https://github.com/hyperflask/hyperflask-start",
+  "commit": "1fbc822a174ca0dc2881ef56b1529c30cb84be94",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "project_name": "Hyperflask Getting Started App",
+      "project_slug": "hyperflask_app",
+      "description": "Web app created using Hyperflask",
+      "domain_name": "example.com",
+      "email": "contact@example.com",
+      "version": "0.1.0",
+      "_template": "https://github.com/hyperflask/hyperflask-start",
+      "_commit": "1fbc822a174ca0dc2881ef56b1529c30cb84be94"
+    }
+  },
+  "directory": null
+}

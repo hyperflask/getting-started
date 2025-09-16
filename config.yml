@@ -1,0 +1,6 @@
+sqlorm_uri: sqlite://database/app.db
+sqlorm_migrations_folder: database/migrations
+assets_tailwind: main.css
+site_title: "Hyperflask Chat"
+FLASH_TOAST_REMOVE_AFTER: "1s"
+mercure_type_is_topic: true

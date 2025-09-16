@@ -1,0 +1,35 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build assets",
+            "type": "shell",
+            "command": "uv run hyperflask assets dev",
+            "isBackground": true,
+            "problemMatcher": {
+                "owner": "python",
+                "fileLocation": ["relative", "${workspaceFolder}"],
+                "pattern": {
+                    "regexp": "^$",
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^Starting with livereload enabled",
+                    "endsPattern": "^\\[esbuild\\]\\[watch\\] build finished"
+                
+                }
+            }
+        },
+        {
+            "label": "Launch scheduler",
+            "type": "shell",
+            "command": "uv run hyperflask periodiq",
+            "isBackground": true
+        },
+        {
+            "label": "Deploy",
+            "type": "shell",
+            "command": "uv run hyperflask deploy",
+        }
+    ]
+}
