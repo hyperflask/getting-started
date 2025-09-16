@@ -1,0 +1,44 @@
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - ..:/workspace
+    command: sleep infinity
+    environment:
+      FLASK_MAIL_BACKEND: smtp
+      FLASK_MAIL_SERVER: mailpit
+      FLASK_MAIL_PORT: 1025
+      # FLASK_DRAMATIQ_BROKER_URL: redis://valkey:6379/0
+      # FLASK_SQLORM_DATABASE_URI: postgresql://user:password@postgres:5432/user
+    # depends_on:
+    #   - postgres
+    #   - valkey
+
+  mailpit: # email testing tool
+    image: axllent/mailpit
+    ports:
+      - "8025:8025"
+
+# --------------------
+# REDIS INTEGRATION (for queueing, caching, etc.)
+# --------------------
+
+#   valkey:
+#     image: valkey/valkey
+
+# --------------------
+# POSTGRESQL INTEGRATION
+# --------------------
+
+#   postgres:
+#     image: postgres
+#     environment:
+#       POSTGRES_USER: user
+#       POSTGRES_PASSWORD: password
+#     volumes:
+#       - pgdata:/var/lib/postgresql/data
+
+# volumes:
+#   pgdata: {}

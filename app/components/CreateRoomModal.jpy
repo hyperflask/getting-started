@@ -1,0 +1,24 @@
+---
+from hyperflask import page, htmx_redirect, url_for
+from hyperflask_users import login_required
+from app.models import db, Room
+
+def get():
+    pass
+
+@login_required
+def post():
+    form = page.form()
+    if form.validate():
+        with db:
+            room = Room.create(**form.data)
+        return htmx_redirect(url_for("index", room_id=room.id))
+---
+{% form %}
+<{Modal}>
+    <{ModalTitle}>Create new room</{ModalTitle}>
+    <{ModalForm form class="form-w-full"}>
+        <{FormField form.name.text("Room name", required=True) }/>
+        <{SubmitButton}>Create</{}>
+    </{ModalForm}>
+</{Modal}>

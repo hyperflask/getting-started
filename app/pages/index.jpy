@@ -1,0 +1,42 @@
+---
+from app.models import Room
+
+page.login_required()
+
+if request.args.get('room_id'):
+  page.room = Room.get_or_404(request.args['room_id'])
+
+page.rooms = list(Room.find_all())
+if not page.get('room') and page.rooms:
+  page.room = page.rooms[0]
+---
+{% use_layout %}
+
+<{AppUI}>
+  <{Viewport overflow=False}>
+    {% if room %}
+      <{ChatRoom room=room}/>
+    {% else %}
+      <{CenterBox}>{{_("No room have been created yet !")}}</{}>
+    {% endif %}
+  </{}>
+  <{Sidebar}>
+    <h1 class="p-4 text-xl">Hyperflask Chat</h1>
+    <{Menu hx_active_url="menu-active"}>
+      <{MenuTitle}>{{_("Rooms")}}</{}>
+      {% for r in rooms %}
+      <{MenuItem hx_get=url_for('ChatRoom', id=r.id) hx_target="#viewport" hx_href=url_for('index', room_id=r.id)}>{{r.name}}</{}>
+      {% endfor %}
+      <{MenuItem hf_modal=url_for('CreateRoomModal')}><{Icon "plus"}/> {{_("Create room")}}</{}>
+    </{}>
+    <{Spacer}/>
+    <{HBox class="m-2"}>
+      <{Avatar placeholder=current_user.email[0] class="w-12"}/>
+      <{VBox }>
+        <div class="text-sm">{{_("Logged in as")}}</div>
+        <div class="break-all">{{current_user.email}}</div>
+        <{Button as="a" href=url_for('users.logout')}>{{_("Logout")}}</{}>
+      </{}>
+    </{}>
+  </{}>
+</{}>

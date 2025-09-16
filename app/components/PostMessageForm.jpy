@@ -1,0 +1,22 @@
+---
+from hyperflask_users import login_required
+from hyperflask import page, request, mercure_publish
+from app.models import db, Message, Room
+
+@login_required
+def post():
+    room = Room.get_or_404(request.values['room_id'])
+    form = page.form()
+    if form.validate():
+        with db:
+            msg = Message.create_for_current_user(room=room, **form.data)
+        mercure_publish(room, msg, private=True)
+    return ""
+---
+{% form %}
+<{HxForm form action=url_for("PostMessageForm", room_id=props.room.id) hx_swap="none" class="p-4 flex gap-4 form-w-full"}>
+    <{Join}>
+        <{FormField form.message.text(required=True, placeholder="Chat") label=False autocomplete="off" autofocus=True }/>
+        <{SubmitButton}>{{_("Send")}}</{}>
+    </{Join}>
+</{HxForm}>
