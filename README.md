@@ -6,20 +6,16 @@ This is the repository for the [Hyperflask Getting Started guide](https://hyperf
 
 ## How to run
 
-Without dev containers:
+Without [dev containers](https://containers.dev/):
 
-1. Install at least Python 3.10 and [uv](https://docs.astral.sh/uv/)
-2. Run `uv run hyperflask dev`
+1. Install Python (>=3.10), [uv](https://docs.astral.sh/uv/) and [nodejs](https://nodejs.org/fr) (>=22)
+2. Run `npm install`
+2. Launch app using `uv run hyperflask dev`
 
-Using VS Code and with the dev containers extension:
+Using [VS Code](https://code.visualstudio.com/) with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
 1. Open your project folder in vscode
 2. Use the *Dev Containers: Reopen in Container* command from the Command Palette
 3. Launch your app using F5
 
-Using dev containers standalone:
-
-1. [Install devcontainers-cli](https://github.com/devcontainers/cli#npm-install)
-2. Start dev container: `devcontainer up --workspace-folder .`
-3. Launch your app: `devcontainer exec uv run hyperflask dev`
-3. Go to http://localhost:5000
+More information in the [setup guide](https://hyperflask.dev/guides/setup/).
