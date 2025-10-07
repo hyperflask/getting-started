@@ -1,7 +1,6 @@
 ---
 from hyperflask import request
 from app.models import Message, Room
-import time
 
 def get():
     return {"room": Room.get_or_404(request.args['id'])}
@@ -10,7 +9,7 @@ def render(room):
     return {"messages": Message.find_all(room_id=room.id, with_rels=['user'])}
 ---
 <h1 class="text-xl p-4">#{{props.room.name}}</h1>
-<{MercureStream topic=props.room class="flex-1 overflow-auto p-4" auto_scroll=True}>
+<{MercureStream topic=props.room class="flex-1 overflow-auto p-4" auto-scroll=True}>
     {{ messages }}
 </{MercureStream}>
 <{PostMessageForm room=props.room}/>

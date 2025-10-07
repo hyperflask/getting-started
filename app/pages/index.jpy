@@ -22,12 +22,12 @@ if not page.get('room') and page.rooms:
   </{}>
   <{Sidebar}>
     <h1 class="p-4 text-xl">Hyperflask Chat</h1>
-    <{Menu hx_active_url="menu-active"}>
+    <{Menu hx-active-url="menu-active"}>
       <{MenuTitle}>{{_("Rooms")}}</{}>
       {% for r in rooms %}
-      <{MenuItem hx_get=url_for('ChatRoom', id=r.id) hx_target="#viewport" hx_href=url_for('index', room_id=r.id)}>{{r.name}}</{}>
+      <{MenuItem hx-get=url_for('ChatRoom', id=r.id) hx-target="#viewport" hx-href=url_for('index', room_id=r.id)}>{{r.name}}</{}>
       {% endfor %}
-      <{MenuItem hf_modal=url_for('CreateRoomModal')}><{Icon "plus"}/> {{_("Create room")}}</{}>
+      <{MenuItem hf-modal=url_for('CreateRoomModal')}><{Icon "plus"}/> {{_("Create room")}}</{}>
     </{}>
     <{Spacer}/>
     <{HBox class="m-2"}>
