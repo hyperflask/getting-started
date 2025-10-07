@@ -3,11 +3,9 @@ name = "hyperflask_app"
 version = "0.1.0"
 requires-python = ">=3.10"
 dependencies = [
-    "hyperflask>=0.3.0",
+    "hyperflask>=0.4.0",
     "hyperflask-users>=0.3.0",
-    # the following 2 packages will be installed from git while an official release is missing
-    "flask-dramatiq",
-    "periodiq"
+    "periodiq" # will be installed from git while an official release is missing
 ]
 
 [dependency-groups]
@@ -20,5 +18,4 @@ dev = [
 ]
 
 [tool.uv.sources]
-flask-dramatiq = { git = "https://gitlab.com/bersace/flask-dramatiq" }
 periodiq = { git = "https://gitlab.com/bersace/periodiq" }
