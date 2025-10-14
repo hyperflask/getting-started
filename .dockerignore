@@ -8,3 +8,4 @@ node_modules
 tests
 .editorconfig
 _site
+public/dist
