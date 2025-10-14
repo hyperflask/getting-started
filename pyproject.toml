@@ -3,7 +3,7 @@ name = "hyperflask_app"
 version = "0.1.0"
 requires-python = ">=3.10"
 dependencies = [
-    "hyperflask>=0.4.0",
+    "hyperflask>=0.5.0",
     "hyperflask-users>=0.3.0",
     "periodiq" # will be installed from git while an official release is missing
 ]
@@ -13,8 +13,7 @@ dev = [
     "pytest>=8.4.1",
     "pytest-cov>=6.2.1",
     "pytest-flask>=1.3.0",
-    "ruff>=0.12.4",
-    #"docker-web-deploy >=0.1"
+    "ruff>=0.12.4"
 ]
 
 [tool.uv.sources]
