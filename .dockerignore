@@ -9,3 +9,4 @@ tests
 .editorconfig
 _site
 public/dist
+.env

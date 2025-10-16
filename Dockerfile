@@ -1,4 +1,6 @@
 FROM nikolaik/python-nodejs:python3.13-nodejs24 AS build
+ENV LITESTREAM_TYPE=s3
+ENV LITESTREAM_PATH=app.db
 
 ADD . /app
 WORKDIR /app
@@ -65,7 +67,7 @@ RUN --mount=type=bind,from=build,source=/app/requirements.txt,target=/tmp/requir
 RUN cat >/app/entrypoint.sh <<EOT
 #!/bin/sh
 set -e
-if [ -z "${LITESTREAM_URL}" ]; then
+if [ -z "\${LITESTREAM_BUCKET}" ] && [ ! -f /etc/litestream.yml ]; then
     hyperflask "\$@"
 else
     if [ ! -f /etc/litestream.yml ] && [ -f /app/litestream.yml ]; then
@@ -75,8 +77,16 @@ else
 dbs:
   - path: /app/database/app.db
     replica:
-      url: ${LITESTREAM_URL}
+      type: \${LITESTREAM_TYPE}
+      path: \${LITESTREAM_PATH}
+      bucket: \${LITESTREAM_BUCKET}
 EOF
+        if [ -n "\${LITESTREAM_ENDPOINT}" ]; then
+            echo "      endpoint: \${LITESTREAM_ENDPOINT}" >> /etc/litestream.yml
+        fi
+        if [ -n "\${LITESTREAM_REGION}" ]; then
+            echo "      region: \${LITESTREAM_REGION}" >> /etc/litestream.yml
+        fi
     fi
     litestream replicate -exec "hyperflask \$@"
 fi

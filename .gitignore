@@ -132,3 +132,4 @@ package-lock.json
 uv.lock
 .github
 .editorconfig
+.env
