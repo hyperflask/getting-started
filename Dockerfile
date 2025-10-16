@@ -1,6 +1,4 @@
 FROM nikolaik/python-nodejs:python3.13-nodejs24 AS build
-ENV LITESTREAM_TYPE=s3
-ENV LITESTREAM_PATH=app.db
 
 ADD . /app
 WORKDIR /app
@@ -10,6 +8,9 @@ RUN mkdir -p _site
 RUN uv export --frozen --no-hashes > requirements.txt
 
 FROM python:3.13-slim
+ARG EXPOSED_PORT=8080
+ENV LITESTREAM_TYPE=s3
+ENV LITESTREAM_PATH=app.db
 
 RUN apt update && apt install -y git curl
 ADD . /app
@@ -35,7 +36,7 @@ RUN cat >/app/Caddyfile <<EOT
     }
 }
 
-:80 {
+:${EXPOSED_PORT} {
     root * /app/_site
 
     handle_path /static/* {
@@ -88,16 +89,16 @@ EOF
             echo "      region: \${LITESTREAM_REGION}" >> /etc/litestream.yml
         fi
     fi
-    litestream replicate -exec "hyperflask \$@"
+    litestream replicate -exec "hyperflask \$*"
 fi
 EOT
 
 RUN chmod +x /app/entrypoint.sh
 ENTRYPOINT ["/app/entrypoint.sh"]
-CMD ["run", "--extend-procfile", "--init-db", "--host", "0.0.0.0"]
+CMD ["run", "--extend-procfile", "--init-db"]
 
 VOLUME ["/app/database", "/app/uploads", "/etc/litestream.yml"]
-EXPOSE 80
+EXPOSE ${EXPOSED_PORT}
 
 HEALTHCHECK --interval=5m --start-period=5s \
   CMD curl -f http://localhost/healthcheck || exit 1
