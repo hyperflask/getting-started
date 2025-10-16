@@ -9,7 +9,7 @@ RUN uv export --frozen --no-hashes > requirements.txt
 
 FROM python:3.13-slim
 
-RUN apt update && apt install -y git
+RUN apt update && apt install -y git curl
 ADD . /app
 WORKDIR /app
 
@@ -26,6 +26,11 @@ RUN cat >/app/Caddyfile <<EOT
     auto_https off
     admin off
     grace_period 5s
+    servers {
+        trusted_proxies static private_ranges
+        trusted_proxies_strict
+        client_ip_headers X-Real-IP Fly-Client-IP X-Forwarded-For
+    }
 }
 
 :80 {
@@ -83,3 +88,6 @@ CMD ["run", "--extend-procfile", "--init-db", "--host", "0.0.0.0"]
 
 VOLUME ["/app/database", "/app/uploads", "/etc/litestream.yml"]
 EXPOSE 80
+
+HEALTHCHECK --interval=5m --start-period=5s \
+  CMD curl -f http://localhost/healthcheck || exit 1

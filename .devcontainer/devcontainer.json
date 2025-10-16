@@ -1,6 +1,7 @@
 {
   "name": "Hyperflask Getting Started App",
   "dockerComposeFile": "docker-compose.yml",
+  "remoteUser": "pn",
   "service": "app",
   "forwardPorts": [5000, 7878],
   "workspaceFolder": "/workspace",
@@ -21,7 +22,6 @@
 				"python.defaultInterpreterPath": "/usr/local/bin/python",
         "python.testing.pytestEnabled": true
 			}
-    },
-    "remoteUser": "vscode"
+    }
   }
 }
